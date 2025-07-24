@@ -1,20 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Sheet Time Tracker</title>
+  <title>IIM Raipur Time Tracker</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { background-color: #f2f2f2; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+      text-align: center;
+    }
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .header img {
+      height: 100px;
+      object-fit: contain;
+    }
+    h1 {
+      color: #800000;
+    }
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      margin: 30px auto;
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0;
+    }
   </style>
 </head>
 <body>
-  <h2>Live Time Tracker from Google Sheet</h2>
-  <div id="sheetData">Loading...</div>
+  <div class="header">
+    <img src="2.jpg" alt="IIM Raipur Logo">
+    <h1>IIM Raipur Time Tracker</h1>
+    <img src="1.jpg" alt="IIM Raipur Campus">
+  </div>
+
+  <div id="sheetData">Loading live data from Google Sheets...</div>
 
   <script>
-    const sheetURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace with your Apps Script Web URL
+    const sheetURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace with your Apps Script Web App URL
 
     async function fetchData() {
       try {
@@ -23,7 +58,7 @@
         renderTable(data);
       } catch (error) {
         document.getElementById("sheetData").innerHTML = "Error loading data.";
-        console.error(error);
+        console.error("Error fetching data:", error);
       }
     }
 
@@ -45,7 +80,7 @@
     }
 
     fetchData();
-    setInterval(fetchData, 30000); // refresh every 30 seconds
+    setInterval(fetchData, 30000); // Refresh every 30 seconds
   </script>
 </body>
 </html>
