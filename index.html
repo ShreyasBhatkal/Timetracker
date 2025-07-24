@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheet Time Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h2>Live Time Tracker from Google Sheet</h2>
+  <div id="sheetData">Loading...</div>
+
+  <script>
+    const sheetURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // Replace with your Apps Script Web URL
+
+    async function fetchData() {
+      try {
+        const response = await fetch(sheetURL);
+        const data = await response.json();
+        renderTable(data);
+      } catch (error) {
+        document.getElementById("sheetData").innerHTML = "Error loading data.";
+        console.error(error);
+      }
+    }
+
+    function renderTable(data) {
+      if (!data.length) return;
+
+      let html = "<table><tr>";
+      data[0].forEach(header => html += `<th>${header}</th>`);
+      html += "</tr>";
+
+      for (let i = 1; i < data.length; i++) {
+        html += "<tr>";
+        data[i].forEach(cell => html += `<td>${cell}</td>`);
+        html += "</tr>";
+      }
+      html += "</table>";
+
+      document.getElementById("sheetData").innerHTML = html;
+    }
+
+    fetchData();
+    setInterval(fetchData, 30000); // refresh every 30 seconds
+  </script>
+</body>
+</html>
